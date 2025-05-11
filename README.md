@@ -19,3 +19,9 @@ A flexible component for handling navigation prompts in React applications using
 - Flexible API for handling navigation blocking
 - Support for async operations before confirming/canceling navigation
 - Compatible with React Router v7 and v6 (with version-specific packages)
+
+# Browser Support
+- This package works in all modern browsers that support React and React Router.
+
+# Acknowledgements
+- This package was created to fill the gap left by removing the built-in Prompt component in React Router v6+.
