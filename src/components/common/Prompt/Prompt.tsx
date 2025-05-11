@@ -20,7 +20,7 @@ function Prompt({ inputText }: { inputText: (text: string) => void }) {
   const handleBeforeUnload = useCallback(
     (event: BeforeUnloadEvent) => {
       if (isDirty) {
-        event.preventDefault();
+        event.stopImmediatePropagation();
         event.returnValue = '';
       }
     },
@@ -41,15 +41,15 @@ function Prompt({ inputText }: { inputText: (text: string) => void }) {
       <div className="flex flex-col items-center justify-center mt-4">
         <Input
           id="initialValue"
-          className="w-1/2 border-2 border-gray-200 p-4 rounded-lg mb-4"
+          className="w-full max-w-md min-w-[200px] border-2 border-gray-200 p-4 rounded-lg mb-4"
           type="text"
-          placeholder="Enter something here and try to click on browser back button"
+          placeholder="Type something here and click on browser back button"
           onChange={(e) => {
             const currentValue = e.target.value;
             if (initialValue === '') {
               setInitialValue(currentValue);
             }
-            setIsDirty(true);
+            setIsDirty(currentValue !== initialValue);
             inputText(currentValue);
           }}
         />
