@@ -7,13 +7,13 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 
-type PromptProps = {
-  isActive: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
-};
+function Prompt({ inputText }: { readonly inputText: (text: string) => void }) {
+  type PromptProps = {
+    isActive: boolean;
+    onConfirm: () => void;
+    onCancel: () => void;
+  };
 
-function Prompt({ inputText }: { inputText: (text: string) => void }) {
   const [isDirty, setIsDirty] = useState(false);
   const [initialValue, setInitialValue] = useState('');
 
@@ -21,7 +21,6 @@ function Prompt({ inputText }: { inputText: (text: string) => void }) {
     (event: BeforeUnloadEvent) => {
       if (isDirty) {
         event.stopImmediatePropagation();
-        event.returnValue = '';
       }
     },
     [isDirty],
