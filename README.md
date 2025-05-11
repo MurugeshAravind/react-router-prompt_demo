@@ -1,54 +1,27 @@
-# React + TypeScript + Vite
+# React Router Prompt
+A flexible component for handling navigation prompts in React applications using React Router v7 or v6. This package helps prevent users from accidentally navigating away from forms with unsaved changes.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Installation
+- Prerequisites -> This package requires React Router as a peer dependency. Choose the appropriate version based on your React Router version:
 
-Currently, two official plugins are available:
+# For React Router v7 (recommended)
+- npm install react-router-prompt
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# For specific React Router versions
+- React Router v7: npm install react-router-prompt@0.8.x
+- React Router DOM v6.19.x - v6.28.1: npm install react-router-prompt@0.7.x
+- React Router DOM v6.7.x - v6.18.x: npm install react-router-prompt@0.5.4
+- React Router DOM v6 - v6.2.x: npm install react-router-prompt@0.3.0
+- Note: This package should be used with data routers when using React Router v7 for optimal functionality.
 
-## Expanding the ESLint configuration
+# Features
+- Create custom navigation confirmation dialogs
+- Flexible API for handling navigation blocking
+- Support for async operations before confirming/canceling navigation
+- Compatible with React Router v7 and v6 (with version-specific packages)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Browser Support
+- This package works in all modern browsers that support React and React Router.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+# Acknowledgements
+- This package was created to fill the gap left by removing the built-in Prompt component in React Router v6+.
