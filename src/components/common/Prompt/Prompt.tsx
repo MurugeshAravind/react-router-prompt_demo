@@ -20,7 +20,8 @@ function Prompt({ inputText }: { inputText: (text: string) => void }) {
   const handleBeforeUnload = useCallback(
     (event: BeforeUnloadEvent) => {
       if (isDirty) {
-        event.stopImmediatePropagation();
+        event.preventDefault();
+        event.returnValue = '';
       }
     },
     [isDirty],
