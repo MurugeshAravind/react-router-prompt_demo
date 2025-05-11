@@ -1,21 +1,39 @@
-import Cart from './components/Cart/Cart';
+import { Cart } from './components/Cart';
+import { Navigation } from './components/common/Navigation';
 import './index.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <>
+        <Navigation />
+        <Cart />
+      </>
+    ),
+  },
+  {
+    path: '/cart/:id',
+    element: (
+      <>
+        <Navigation />
+        <Cart />
+      </>
+    ),
+  },
+  {
+    path: '*',
+    element: (
+      <>
+        <p>Page Not found</p>
+      </>
+    ),
+  },
+]);
 
 function App() {
-  return (
-    <BrowserRouter
-      future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}
-    >
-      <Routes>
-        <Route path="/" element={<Cart />} />
-        <Route path="/cart/:id" element={<Cart />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

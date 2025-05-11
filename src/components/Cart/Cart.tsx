@@ -2,20 +2,27 @@ import React, { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { PRODUCTS_API, CARTS_API } from '../Utilties/appUtils';
 import { useParams } from 'react-router-dom';
-import { Products } from '../Products/Products';
+import { Products } from '../Products';
+import { Prompt } from '../common/Prompt';
 
 export type Data = {
   title: string;
   image: string;
   price: number;
   id: number;
+  rating: {
+    rate: number;
+    count: number;
+  };
 };
 
-const Cart = (): React.JSX.Element => {
+function Cart(): React.JSX.Element {
   const { id } = useParams();
   const [cartData, setCartData] = useState<Data[]>([]);
-  const callAPI = async () => {
-    const cartDataRes = await axios.get(`${CARTS_API}${id ? id : '2'}`);
+  const [searchText, setSearchText] = useState('');
+
+  const callAPI = async (cartId = '2') => {
+    const cartDataRes = await axios.get(`${CARTS_API}${cartId}`);
     const { data: CART_DATA, status }: AxiosResponse = cartDataRes;
     if (status === 200) {
       CART_DATA?.products?.map(async (item: Record<string, unknown>) => {
@@ -34,19 +41,31 @@ const Cart = (): React.JSX.Element => {
     }
   };
   useEffect(() => {
-    callAPI();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    callAPI(id);
+  }, [id]);
+  const handleInputText = (text: string) => {
+    setSearchText(text);
+  };
   return (
-    <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-      <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        {cartData?.length > 0 &&
-          cartData?.map((x, index) => {
-            return <Products key={`${x?.id}_${index}`} {...x} />;
-          })}
+    <>
+      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <Prompt inputText={handleInputText} />
+        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 mt-10">
+          {cartData?.length > 0 && [
+            ...new Set(
+              cartData
+                .filter((item) =>
+                  item.title.toLowerCase().includes(searchText.toLowerCase()),
+                )
+                .map((item, index) => {
+                  return <Products key={`${item?.id}_${index}`} {...item} />;
+                }),
+            ),
+          ]}
+        </div>
       </div>
-    </div>
+    </>
   );
-};
+}
 
 export default React.memo(Cart);

@@ -1,6 +1,7 @@
 import { Data } from '../Cart/Cart';
+import Rating from '@mui/material/Rating';
 
-export const Products = ({ image, title, price }: Data) => {
+function Products({ image, title, price, rating }: Data) {
   return (
     <>
       <a href="#" className="group">
@@ -11,7 +12,9 @@ export const Products = ({ image, title, price }: Data) => {
         />
         <h3 className="mt-4 text-sm text-gray-700">{title}</h3>
         <p className="mt-1 text-lg font-medium text-gray-900">${price}</p>
+        <Rating name="simple-controlled" value={rating?.rate || 2} />
       </a>
     </>
   );
-};
+}
+export default Products;
