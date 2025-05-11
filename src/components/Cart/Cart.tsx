@@ -25,7 +25,7 @@ function Cart(): React.JSX.Element {
 
   const handleCartAPI = async (cartId: string | undefined) => {
     setIsLoading(true);
-    const cartDataRes = await axios.get(`${CARTS_API}${cartId || 2}`);
+    const cartDataRes = await axios.get(`${CARTS_API}${cartId ?? 2}`);
     setIsLoading(false);
     const { data: CART_DATA, status }: AxiosResponse = cartDataRes;
     if (status === 200) {
@@ -82,7 +82,7 @@ function Cart(): React.JSX.Element {
                   item.title.toLowerCase().includes(searchText.toLowerCase()),
                 )
                 .map((item, index) => {
-                  return <Products key={index} {...item} />;
+                  return <Products key={`${item.id}_${index}`} {...item} />;
                 })}
           </div>
         </div>
