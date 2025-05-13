@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
-import { PRODUCTS_API, CARTS_API } from '../Utilties/appUtils';
-import { useParams } from 'react-router-dom';
-import { Products } from '../Products';
-import { Prompt } from '../common/Prompt';
-import { TailSpin } from 'react-loader-spinner';
+import React, { useEffect, useState } from "react";
+import axios, { AxiosResponse } from "axios";
+import { PRODUCTS_API, CARTS_API } from "../Utilties/appUtils";
+import { useParams } from "react-router-dom";
+import { Products } from "../Products";
+import { Prompt } from "../common/Prompt";
+import { TailSpin } from "react-loader-spinner";
 
 export type Data = {
   title: string;
@@ -20,7 +20,7 @@ export type Data = {
 function Cart(): React.JSX.Element {
   const { id } = useParams();
   const [cartData, setCartData] = useState<Data[]>([]);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCartAPI = async (cartId: string | undefined) => {
@@ -50,11 +50,11 @@ function Cart(): React.JSX.Element {
             },
           ]);
         } else {
-          throw new Error('error');
+          throw new Error("error");
         }
       });
     } else {
-      throw new Error('error');
+      throw new Error("error");
     }
   };
 
@@ -78,8 +78,12 @@ function Cart(): React.JSX.Element {
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 mt-10">
             {cartData?.length > 0 &&
               cartData
+                .filter(
+                  (item, index, self) =>
+                    self.findIndex((t) => t.id === item.id) === index
+                )
                 .filter((item) =>
-                  item.title.toLowerCase().includes(searchText.toLowerCase()),
+                  item.title.toLowerCase().includes(searchText.toLowerCase())
                 )
                 .map((item, index) => {
                   return <Products key={`${item.id}_${index}`} {...item} />;
