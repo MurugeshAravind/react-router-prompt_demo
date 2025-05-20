@@ -5,6 +5,9 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "jsx": "react-jsx",
+    "types": ["@types/jest", "@types/testing-library__jest-dom", "@types/mocha", "jest", "mocha", "testing-library__jest-dom"],
+    "esModuleInterop": true
   }
 }
