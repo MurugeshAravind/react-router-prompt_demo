@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
-import { redirect, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Products } from "../Products";
 import { Prompt } from "../common/Prompt";
 import { TailSpin } from "react-loader-spinner";
@@ -22,45 +22,56 @@ function Cart(): React.JSX.Element {
   const [cartData, setCartData] = useState<Data[]>([]);
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleCartAPI = async (cartId: string | undefined) => {
-    setIsLoading(true);
-    const cartDataRes = await fetchCartData(Number(cartId));
-    setIsLoading(false);
-    const { data: CART_DATA, status }: AxiosResponse = cartDataRes;
-    if (status === 200) {
-      CART_DATA.products.map(async (item: Record<string, unknown>) => {
-        const PRODUCTS_DATA = await Promise.all([
-          fetchProductData(Number(item.productId)),
-        ]);
-        const res = PRODUCTS_DATA[0];
-        const { data, status } = res;
-        if (status === 200 && Object.keys(res).length > 0) {
-          setCartData((prev) => [
-            ...prev,
-            {
-              title: data.title,
-              image: data.image,
-              price: data.price,
-              id: data.id,
-              rating: {
-                rate: data.rating.rate,
-                count: data.rating.count,
-              },
-            },
+  const redirect = React.useCallback(
+    (path: string) => {
+      navigate(path); // Redirect to the specified path
+    },
+    [navigate]
+  );
+
+  const handleCartAPI = React.useCallback(
+    async (cartId: string | undefined) => {
+      setIsLoading(true);
+      const cartDataRes = await fetchCartData(Number(cartId));
+      setIsLoading(false);
+      const { data: CART_DATA, status }: AxiosResponse = cartDataRes;
+      if (status === 200) {
+        CART_DATA.products.map(async (item: Record<string, unknown>) => {
+          const PRODUCTS_DATA = await Promise.all([
+            fetchProductData(Number(item.productId)),
           ]);
-        } else {
-          redirect("/error");
-        }
-      });
-    } else {
-      redirect("/error");
-    }
-  };
+          const res = PRODUCTS_DATA[0];
+          const { data, status } = res;
+          if (status === 200 && Object.keys(res).length > 0) {
+            setCartData((prev) => [
+              ...prev,
+              {
+                title: data.title,
+                image: data.image,
+                price: data.price,
+                id: data.id,
+                rating: {
+                  rate: data.rating.rate,
+                  count: data.rating.count,
+                },
+              },
+            ]);
+          } else {
+            redirect("/error");
+          }
+        });
+      } else {
+        redirect("/error");
+      }
+    },
+    [redirect]
+  );
 
   useEffect(() => {
     handleCartAPI(id);
-  }, [id]);
+  }, [handleCartAPI, id]);
 
   const handleInputText = (text: string) => {
     setSearchText(text);
