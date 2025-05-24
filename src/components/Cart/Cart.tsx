@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { AxiosResponse } from "axios";
-import { useParams, useNavigate } from "react-router-dom";
-import { Products } from "../Products";
-import { Prompt } from "../common/Prompt";
-import { TailSpin } from "react-loader-spinner";
-import { fetchCartData, fetchProductData } from "../common/api/api";
+import React, { useEffect, useState } from 'react';
+import { AxiosResponse } from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Products } from '../Products';
+import { Prompt } from '../common/Prompt';
+import * as Spinner from 'react-loader-spinner';
+import { fetchCartData, fetchProductData } from '../common/api/api';
 
 export type Data = {
   title: string;
@@ -20,7 +20,7 @@ export type Data = {
 function Cart(): React.JSX.Element {
   const { id } = useParams();
   const [cartData, setCartData] = useState<Data[]>([]);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ function Cart(): React.JSX.Element {
     (path: string) => {
       navigate(path); // Redirect to the specified path
     },
-    [navigate]
+    [navigate],
   );
 
   const handleCartAPI = React.useCallback(
@@ -59,14 +59,14 @@ function Cart(): React.JSX.Element {
               },
             ]);
           } else {
-            redirect("/error");
+            redirect('/error');
           }
         });
       } else {
-        redirect("/error");
+        redirect('/error');
       }
     },
-    [redirect]
+    [redirect],
   );
 
   useEffect(() => {
@@ -81,7 +81,7 @@ function Cart(): React.JSX.Element {
     <>
       {isLoading ? (
         <div className="flex mx-auto items-center justify-center h-screen">
-          <TailSpin width="200" color="#AABBCC" />
+          <Spinner.TailSpin width="200" color="#AABBCC" />
         </div>
       ) : (
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -91,10 +91,10 @@ function Cart(): React.JSX.Element {
               cartData
                 .filter(
                   (item, index, self) =>
-                    self.findIndex((t) => t.id === item.id) === index
+                    self.findIndex((t) => t.id === item.id) === index,
                 )
                 .filter((item) =>
-                  item.title.toLowerCase().includes(searchText.toLowerCase())
+                  item.title.toLowerCase().includes(searchText.toLowerCase()),
                 )
                 .map((item, index) => {
                   return <Products key={`${item.id}_${index}`} {...item} />;

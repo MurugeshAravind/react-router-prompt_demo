@@ -9,14 +9,18 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest --watchAll=false",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "playwright": "npx playwright test demo-test.spec.ts --ui --config=playwright.config.ts",
+    "playwright:report": "playwright show-report"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@lottiefiles/dotlottie-react": "^0.13.5",
     "@mui/material": "^7.1.0",
     "@tailwindcss/vite": "^4.0.17",
     "axios": "^1.8.3",
+    "playwright": "^1.52.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-loader-spinner": "^6.1.6",
@@ -27,6 +31,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
+    "@playwright/test": "^1.52.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@types/jest": "^29.5.14",

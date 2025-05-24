@@ -4,27 +4,25 @@ import {
   waitFor,
   fireEvent,
   act,
-} from "@testing-library/react";
-import Cart from "./Cart";
-import { Navigation } from "../common/Navigation";
-import { fetchCartData, fetchProductData } from "../common/api/api";
-import * as reactRouterDom from "react-router-dom";
+} from '@testing-library/react';
+import Cart from './Cart';
+import { Navigation } from '../common/Navigation';
+import { fetchCartData, fetchProductData } from '../common/api/api';
+import * as reactRouterDom from 'react-router-dom';
 
-jest.mock("../common/api/api", () => ({
+jest.mock('../common/api/api', () => ({
   fetchCartData: jest.fn(),
   fetchProductData: jest.fn(),
 }));
 
-
 jest.mock('react-router-dom', () => ({
- ...jest.requireActual('react-router-dom'),
- useNavigate: jest.fn(),
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
 }));
-
 
 const router = reactRouterDom.createMemoryRouter([
   {
-    path: "/",
+    path: '/',
     element: (
       <>
         <Navigation />
@@ -33,7 +31,7 @@ const router = reactRouterDom.createMemoryRouter([
     ),
   },
   {
-    path: "/cart/:id",
+    path: '/cart/:id',
     element: (
       <>
         <Navigation />
@@ -42,7 +40,7 @@ const router = reactRouterDom.createMemoryRouter([
     ),
   },
   {
-    path: "*",
+    path: '*',
     element: <p>Page Not found</p>,
   },
 ]);
@@ -50,7 +48,7 @@ const router = reactRouterDom.createMemoryRouter([
 const mockCartData = {
   id: 2,
   userId: 1,
-  date: "2020-01-02T00:00:00.000Z",
+  date: '2020-01-02T00:00:00.000Z',
   products: [
     {
       productId: 2,
@@ -69,12 +67,12 @@ const mockCartData = {
 };
 const mockProductData = {
   id: 1,
-  title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+  title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
   price: 109.95,
   description:
-    "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+    'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
   category: "men's clothing",
-  image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+  image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
   rating: {
     rate: 3.9,
     count: 120,
@@ -92,7 +90,7 @@ const mockProductAPI = async (data: Record<string, unknown>, status: number) =>
     status,
   });
 
-describe("Cart component tests", () => {
+describe('Cart component tests', () => {
   beforeEach(async () => {
     act(() => {
       mockCartAPI(mockCartData, 200);
@@ -100,36 +98,36 @@ describe("Cart component tests", () => {
     });
     jest.useFakeTimers();
   });
-  it("should render the Cart component + detect input field", async () => {
+  it('should render the Cart component + detect input field', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
     await waitFor(() => {
       expect(
         screen.getByPlaceholderText(
-          /Type something here and click on browser back button/i
-        )
+          /Type something here and click on browser back button/i,
+        ),
       ).toBeDefined();
     });
   });
-  it("mocking the product data", async () => {
+  it('mocking the product data', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
     await waitFor(() => {
       expect(
-        screen.getByText(/Fjallraven - Foldsack No. 1 Backpack/i)
+        screen.getByText(/Fjallraven - Foldsack No. 1 Backpack/i),
       ).toBeDefined();
     });
   });
-  it("mocking the click on cart link + mocking confirm click on dialog", async () => {
+  it('mocking the click on cart link + mocking confirm click on dialog', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
     await waitFor(() => {
-      const inputBox = screen.getByRole("textbox");
+      const inputBox = screen.getByRole('textbox');
       expect(inputBox).toBeDefined();
-      fireEvent.input(inputBox, { target: { value: "test" } });
+      fireEvent.input(inputBox, { target: { value: 'test' } });
     });
     await waitFor(() => {
       const cartLink = screen.getByText(/Cart/i);
@@ -137,10 +135,10 @@ describe("Cart component tests", () => {
       fireEvent.click(cartLink);
     });
     await waitFor(() => {
-      const dialogBox = screen.getByRole("dialog");
+      const dialogBox = screen.getByRole('dialog');
       expect(dialogBox).toBeDefined();
       const header = screen.getByText(
-        /Are you sure you want to leave this page/i
+        /Are you sure you want to leave this page/i,
       );
       expect(header).toBeDefined();
       const cancelButton = screen.getByText(/Cancel/i);
@@ -150,14 +148,14 @@ describe("Cart component tests", () => {
       fireEvent.click(confirmButton);
     });
   });
-  it("mocking the click on cart link + mocking cancel click on dialog", async () => {
+  it('mocking the click on cart link + mocking cancel click on dialog', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
     await waitFor(() => {
-      const inputBox = screen.getByRole("textbox");
+      const inputBox = screen.getByRole('textbox');
       expect(inputBox).toBeDefined();
-      fireEvent.input(inputBox, { target: { value: "test" } });
+      fireEvent.input(inputBox, { target: { value: 'test' } });
     });
     await waitFor(() => {
       const cartLink = screen.getByText(/Cart/i);
@@ -165,10 +163,10 @@ describe("Cart component tests", () => {
       fireEvent.click(cartLink);
     });
     await waitFor(() => {
-      const dialogBox = screen.getByRole("dialog");
+      const dialogBox = screen.getByRole('dialog');
       expect(dialogBox).toBeDefined();
       const header = screen.getByText(
-        /Are you sure you want to leave this page/i
+        /Are you sure you want to leave this page/i,
       );
       expect(header).toBeDefined();
       const cancelButton = screen.getByText(/Cancel/i);
@@ -176,54 +174,54 @@ describe("Cart component tests", () => {
       fireEvent.click(cancelButton);
     });
   });
-  it("should handle beforeunload event", async () => {
-    const addEventListenerMock = jest.spyOn(window, "addEventListener");
+  it('should handle beforeunload event', async () => {
+    const addEventListenerMock = jest.spyOn(window, 'addEventListener');
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
     await waitFor(() => {
-      const inputBox = screen.getByRole("textbox");
+      const inputBox = screen.getByRole('textbox');
       expect(inputBox).toBeDefined();
-      fireEvent.input(inputBox, { target: { value: "test" } });
+      fireEvent.input(inputBox, { target: { value: 'test' } });
     });
-    const beforeUnloadEvent = new Event("beforeunload", { cancelable: true });
+    const beforeUnloadEvent = new Event('beforeunload', { cancelable: true });
     window.dispatchEvent(beforeUnloadEvent);
     expect(addEventListenerMock).toHaveBeenCalledWith(
-      "beforeunload",
-      expect.any(Function)
+      'beforeunload',
+      expect.any(Function),
     );
     addEventListenerMock.mockRestore();
   });
 
-  it("should filter products based on search text", async () => {
+  it('should filter products based on search text', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
     await waitFor(() => {
-      const inputBox = screen.getByRole("textbox");
-      fireEvent.input(inputBox, { target: { value: "fjallraven" } });
+      const inputBox = screen.getByRole('textbox');
+      fireEvent.input(inputBox, { target: { value: 'fjallraven' } });
       expect(
-        screen.getByText(/Fjallraven - Foldsack No. 1 Backpack/i)
+        screen.getByText(/Fjallraven - Foldsack No. 1 Backpack/i),
       ).toBeDefined();
     });
   });
 
-  it("should not render product if search text does not match", async () => {
+  it('should not render product if search text does not match', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
     await waitFor(() => {
-      const inputBox = screen.getByRole("textbox");
-      fireEvent.input(inputBox, { target: { value: "nonexistent" } });
+      const inputBox = screen.getByRole('textbox');
+      fireEvent.input(inputBox, { target: { value: 'nonexistent' } });
       expect(
-        screen.queryByText(/Fjallraven - Foldsack No. 1 Backpack/i)
+        screen.queryByText(/Fjallraven - Foldsack No. 1 Backpack/i),
       ).toBeNull();
     });
   });
 
   // Additional tests for increased coverage
 
-  it("should render empty state if cartData is empty", async () => {
+  it('should render empty state if cartData is empty', async () => {
     // Mock empty cart data
     act(() => {
       mockCartAPI({ ...mockCartData, products: [] }, 200);
@@ -234,10 +232,10 @@ describe("Cart component tests", () => {
     });
     // Should not render any product
     expect(
-      screen.queryByText(/Fjallraven - Foldsack No. 1 Backpack/i)
+      screen.queryByText(/Fjallraven - Foldsack No. 1 Backpack/i),
     ).toBeNull();
   });
-  it("should call redirect to /error if product fetch fails (status !== 200)", async () => {
+  it('should call redirect to /error if product fetch fails (status !== 200)', async () => {
     const errorProductData = { ...mockProductData };
     act(() => {
       mockCartAPI(mockCartData, 200);
@@ -249,10 +247,10 @@ describe("Cart component tests", () => {
     });
     await waitFor(() => {
       // Navigation to /error is expected because the API call failed.
-      expect(navigateMock).toHaveBeenCalledWith("/error");
+      expect(navigateMock).toHaveBeenCalledWith('/error');
     });
   });
-  it("should call redirect to /error if cart fetch fails (status !== 200)", async () => {
+  it('should call redirect to /error if cart fetch fails (status !== 200)', async () => {
     act(() => {
       mockCartAPI(mockCartData, 404);
       mockProductAPI(mockProductData, 200);
@@ -262,10 +260,10 @@ describe("Cart component tests", () => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
     await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith("/error");
+      expect(navigateMock).toHaveBeenCalledWith('/error');
     });
   });
-  it("should not add product if product data is empty", async () => {
+  it('should not add product if product data is empty', async () => {
     // Simulate product API returning empty object
     act(() => {
       mockCartAPI(mockCartData, 200);
@@ -276,21 +274,21 @@ describe("Cart component tests", () => {
     });
     // Should not render any product
     expect(
-      screen.queryByText(/Fjallraven - Foldsack No. 1 Backpack/i)
+      screen.queryByText(/Fjallraven - Foldsack No. 1 Backpack/i),
     ).toBeNull();
   });
-  it("should update searchText state on input", async () => {
+  it('should update searchText state on input', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
-    const inputBox = await screen.findByRole("textbox");
-    fireEvent.input(inputBox, { target: { value: "fjall" } });
+    const inputBox = await screen.findByRole('textbox');
+    fireEvent.input(inputBox, { target: { value: 'fjall' } });
     // Should still show the product since it matches
     expect(
-      screen.getByText(/Fjallraven - Foldsack No. 1 Backpack/i)
+      screen.getByText(/Fjallraven - Foldsack No. 1 Backpack/i),
     ).toBeDefined();
   });
-  it("should render multiple products if multiple productData are returned", async () => {
+  it('should render multiple products if multiple productData are returned', async () => {
     // Mock multiple products
     const multiCartData = {
       ...mockCartData,
@@ -301,11 +299,11 @@ describe("Cart component tests", () => {
     };
     const productData2 = {
       id: 2,
-      title: "Another Product",
+      title: 'Another Product',
       price: 50,
-      description: "desc",
-      category: "cat",
-      image: "img",
+      description: 'desc',
+      category: 'cat',
+      image: 'img',
       rating: { rate: 4, count: 10 },
     };
     (fetchCartData as jest.Mock).mockResolvedValue({
@@ -320,12 +318,12 @@ describe("Cart component tests", () => {
     });
     await waitFor(() => {
       expect(
-        screen.getByText(/Fjallraven - Foldsack No. 1 Backpack/i)
+        screen.getByText(/Fjallraven - Foldsack No. 1 Backpack/i),
       ).toBeDefined();
       expect(screen.getByText(/Another Product/i)).toBeDefined();
     });
   });
-  it("mock duplicate product data", async () => {
+  it('mock duplicate product data', async () => {
     // Add duplicate product to mockCartData
     const duplicateCartData = {
       ...mockCartData,
@@ -341,28 +339,28 @@ describe("Cart component tests", () => {
     await waitFor(() => {
       // Should only render one instance of the product
       expect(
-        screen.getAllByText(/Fjallraven - Foldsack No. 1 Backpack/i).length
+        screen.getAllByText(/Fjallraven - Foldsack No. 1 Backpack/i).length,
       ).toBe(1);
     });
   });
 });
 
-it("should show loader when isLoading is true", async () => {
+it('should show loader when isLoading is true', async () => {
   // Force isLoading to true by making fetchCartData unresolved
   (fetchCartData as jest.Mock).mockImplementation(() => new Promise(() => {}));
   await waitFor(() => {
     render(<reactRouterDom.RouterProvider router={router} />);
   });
-  expect(screen.getByTestId("tail-spin-loading")).toBeDefined();
+  expect(screen.getByTestId('tail-spin-loading')).toBeDefined();
 });
 
 const setupNavigateMock = () => {
   const navigateMock = jest.fn();
-  jest.spyOn(reactRouterDom, "useNavigate").mockReturnValue(navigateMock);
+  jest.spyOn(reactRouterDom, 'useNavigate').mockReturnValue(navigateMock);
   return navigateMock;
 };
 
-describe("Cart component tests with product api having status as 500", () => {
+describe('Cart component tests with product api having status as 500', () => {
   let navigateMock: jest.Mock;
 
   beforeEach(async () => {
@@ -374,23 +372,23 @@ describe("Cart component tests with product api having status as 500", () => {
     jest.useFakeTimers();
   });
 
-  it("should render the Cart component + detect input field", async () => {
+  it('should render the Cart component + detect input field', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
   });
 
-  it("should redirect to /error if product api fails", async () => {
+  it('should redirect to /error if product api fails', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
     await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith("/error");
+      expect(navigateMock).toHaveBeenCalledWith('/error');
     });
   });
 });
 
-describe("Cart component tests with cart api having status as 500", () => {
+describe('Cart component tests with cart api having status as 500', () => {
   let navigateMock: jest.Mock;
 
   beforeEach(async () => {
@@ -402,18 +400,18 @@ describe("Cart component tests with cart api having status as 500", () => {
     jest.useFakeTimers();
   });
 
-  it("should render the Cart component + detect input field", async () => {
+  it('should render the Cart component + detect input field', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
   });
 
-  it("should redirect to /error if cart api fails", async () => {
+  it('should redirect to /error if cart api fails', async () => {
     await waitFor(() => {
       render(<reactRouterDom.RouterProvider router={router} />);
     });
     await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith("/error");
+      expect(navigateMock).toHaveBeenCalledWith('/error');
     });
   });
 });

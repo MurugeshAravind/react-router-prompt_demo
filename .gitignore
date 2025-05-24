@@ -29,6 +29,8 @@ dist-ssr
 # Ignore coverage directories at any level
 **/coverage/
 **/lcov-report/
+**/playwright-report/
+**/test-results/
 
 # Ignore specific lcov files
 baseline-coverage.info

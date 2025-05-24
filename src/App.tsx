@@ -1,11 +1,12 @@
-import { Cart } from "./components/Cart";
-import { Navigation } from "./components/common/Navigation";
-import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Cart } from './components/Cart';
+import { Navigation } from './components/common/Navigation';
+import { PageNotFound } from './components/common/PageNotFound';
+import './index.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: (
       <>
         <Navigation />
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/cart/:id",
+    path: '/cart/:id',
     element: (
       <>
         <Navigation />
@@ -23,8 +24,8 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "*",
-    element: <p>Page Not found</p>,
+    path: '*',
+    element: <PageNotFound />,
   },
 ]);
 

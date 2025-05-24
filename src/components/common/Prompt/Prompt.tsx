@@ -40,6 +40,10 @@ function Prompt({ inputText }: { readonly inputText: (text: string) => void }) {
       <div className="flex flex-col items-center justify-center mt-4">
         <Input
           id="initialValue"
+          inputProps={{
+            'aria-label': 'Initial Value',
+            'data-testid': 'initialValueInput',
+          }}
           className="w-full max-w-md min-w-[200px] border-2 border-gray-200 p-4 rounded-lg mb-4"
           type="text"
           placeholder="Type something here and click on browser back button"
