@@ -23,6 +23,14 @@ dist-ssr
 *.sln
 *.sw?
 
-/coverage
-*.coverage
-*.lcov
+# Ignore all .info files anywhere in the project
+**/*.info
+
+# Ignore coverage directories at any level
+**/coverage/
+**/lcov-report/
+
+# Ignore specific lcov files
+baseline-coverage.info
+coverage.info
+cov_init.info
