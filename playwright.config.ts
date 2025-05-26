@@ -9,5 +9,6 @@ export default defineConfig({
   use: {
     headless: true, // run tests in headless mode
     trace: 'retain-on-failure', // record traces on first retry of each test
+    ignoreHTTPSErrors: true, // ignore HTTPS errors
   },
 });
