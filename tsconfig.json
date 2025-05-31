@@ -14,7 +14,9 @@
       "jest",
       "mocha",
       "testing-library__jest-dom",
-      "node"
+      "node",
+      "@testing-library/jest-dom",
+      "bun-types"
     ],
     "esModuleInterop": true
   }

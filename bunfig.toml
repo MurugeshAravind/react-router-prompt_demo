@@ -1,0 +1,20 @@
+
+[test]
+root="./src/components/__test__"
+coverage = true
+coverageSkipTestFiles = true
+preload = "./happydom.ts"
+coverageReporter = ["text", "lcov"]
+coverageDir = "coverage"
+coverageIgnore = [
+  "src/tests/**",
+  "dist/**",
+  "build/**",
+  "node_modules/**",
+  "coverage/**",
+  "public/**",
+  "**/*.config.js",
+  "**/*.config.ts",
+  "**/*.d.ts",
+  "**/index.ts"
+]

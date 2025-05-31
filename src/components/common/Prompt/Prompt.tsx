@@ -57,7 +57,10 @@ function Prompt({ inputText }: { readonly inputText: (text: string) => void }) {
           }}
         />
       </div>
-      <ReactRouterPrompt.default when={isDirty}>
+      <ReactRouterPrompt.default
+        when={isDirty}
+        message="Are you sure you want to leave this page?"
+      >
         {({ isActive, onConfirm, onCancel }: PromptProps) => (
           <Dialog open={isActive} onClose={onCancel}>
             <Box className="flex flex-col items-center justify-center bg-white p-4 rounded shadow-lg">
