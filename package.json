@@ -2,16 +2,20 @@
   "name": "vite-react-typescript-starter",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://murugesharavind.github.io/react-router-prompt_demo/",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "test": "jest --watchAll=false",
     "coverage": "jest --coverage",
     "playwright": "npx playwright test demo-test.spec.ts --ui --config=playwright.config.ts",
-    "playwright:report": "playwright show-report"
+    "playwright:report": "playwright show-report",
+    "predeploy": "npm run build && npm run lint:fix",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -20,6 +24,7 @@
     "@mui/material": "^7.1.0",
     "@tailwindcss/vite": "^4.0.17",
     "axios": "^1.8.3",
+    "gh-pages": "^6.3.0",
     "playwright": "^1.52.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
