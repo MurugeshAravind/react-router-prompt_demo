@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/react-router-prompt_demo/',
     element: (
       <>
         <Navigation />
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/cart/:id',
+    path: '/react-router-prompt_demo/cart/:id',
     element: (
       <>
         <Navigation />
